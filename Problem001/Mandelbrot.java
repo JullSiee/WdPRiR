@@ -57,7 +57,7 @@ public class Mandelbrot
 	//zapis obrazka do pliku
         try 
         {
-            File output = new File("C:\\Users\\julia\\OneDrive\\Pulpit\\mandelbrot.png");
+            File output = new File("mandelbrot.png");
             ImageIO.write(image, "PNG", output);
         } catch (IOException e) 
         {
@@ -91,7 +91,7 @@ public class Mandelbrot
 			average.add(avgTime(numIter, i, i, reMin, reMax, imMin, imMax, maxIter));
 		}
 
-		String fileName = "C:\\Users\\julia\\OneDrive\\Pulpit\\Codes\\kodyy\\avg.txt";
+		String fileName = "avg.txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) 
         {
