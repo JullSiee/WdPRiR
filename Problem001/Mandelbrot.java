@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 
 public class Mandelbrot 
 {
+	//pomocnicza funkcja sprawdzjąca warunek dla zbioru Mandelbrota
 	public static int mandelbrot(Complex c, int maxIter) 
 	{
         Complex z = new Complex(0, 0);
@@ -25,10 +26,11 @@ public class Mandelbrot
         }
         return n;
     }
+	//funkcja generująca obrazek z fraktalem
 	public static void generateImage(int width, int height, double reMin, double reMax, double imMin, double imMax, int maxIter)
 	{
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
+	//podwójna pętla, która pixel po pixelu oblicza ilość iteracji dla poszczególnej liczby zespolonej
         for (int x = 0; x < width; x++) 
         {
             for (int y = 0; y < height; y++) 
@@ -39,11 +41,12 @@ public class Mandelbrot
                 Complex c = new Complex(realPart, imagPart);
 
                 int iterations = mandelbrot(c, maxIter);               
-                
+                //Kolorowanie obrazka -- gdy liczba iteracji jest maksymalna dana współrzędna kolorowana jest na czarno
                 if (iterations == maxIter) 
                 {
                     image.setRGB(x, y, Color.BLACK.getRGB());
                 } 
+		//W przeciwnym wypadku kolor interpretowany jest za pomocą systemu HSB (odcień, nasycenie jasność)
                 else 
                 {
                     float hue = (float) iterations / maxIter;
@@ -51,10 +54,10 @@ public class Mandelbrot
                 }
             }
         }
-
+	//zapis obrazka do pliku
         try 
         {
-            File output = new File("C:\\Users\\julia\\OneDrive\\Pulpit\\mandel.png");
+            File output = new File("C:\\Users\\julia\\OneDrive\\Pulpit\\mandelbrot.png");
             ImageIO.write(image, "PNG", output);
         } catch (IOException e) 
         {
@@ -62,7 +65,7 @@ public class Mandelbrot
         }
 		
 	}
-	
+	//funkcja licząca średni czas wykonywania obrazka dla zadanej ilosći razy
 	public static double avgTime(int numIter, int width, int height, double reMin, double reMax, double imMin, double imMax, int maxIter)
 	{
 		long totalTime = 0;
@@ -77,7 +80,8 @@ public class Mandelbrot
 		}
 		return totalTime/numIter/1000000000.0;
 	}
-	
+
+	//funkcja generująca plik z dwoma kolumnami: pierwsza kolumna -- rozmiar obrazka do kwadratu, druga kolumna -- średni czas generowania obrazka o zadanym rozmiarze
 	public static void plot(int numIter, double reMin, double reMax, double imMin, double imMax, int maxIter)
 	{
 		List<Integer> sizeList = Arrays.asList(32, 64, 128, 256, 512, 1024, 2048, 4096, 8192); 
@@ -127,7 +131,7 @@ public class Mandelbrot
         
         //generateImage(width, height, reMin, reMax, imMin, imMax, maxIter);
         //System.out.println(avgTime(1, width, height, reMin, reMax, imMin, imMax, maxIter));
-        plot(5, reMin, reMax, imMin, imMax, maxIter);
+        plot(50, reMin, reMax, imMin, imMax, maxIter);
 	}
 
 }
