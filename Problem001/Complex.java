@@ -1,4 +1,4 @@
-
+//klasa wprowadzająca liczby zespolone i podstawowe operacje do wykonania na nich
 public class Complex 
 {
 	private double real;
